@@ -9,8 +9,6 @@ function signUpForm(req, res) {
 async function handleSignUp(req, res) {
   try {
     const { username, password } = req.body;
-    console.log("The username is: ", username);
-    console.log("The password is: ", password);
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -19,7 +17,6 @@ async function handleSignUp(req, res) {
     });
 
     if (user) {
-      console.log("User found: ", username);
       return res.json({ message: "User already exists" });
     } else {
       await prisma.user.create({
