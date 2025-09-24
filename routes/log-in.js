@@ -14,7 +14,7 @@ login.post(
         return "Authentication failed";
     }
 
-    const token = jwt.sign({user: user}, process.env.SECRET_KEY);
+    const token = jwt.sign({user: user}, process.env.SECRET_KEY, {expiresIn: "1hr"});
     res.json({token, success: true});
   }
 );
