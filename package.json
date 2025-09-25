@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "cors": "^2.8.5",
     "prisma": "^6.16.2"
   },
   "dependencies": {

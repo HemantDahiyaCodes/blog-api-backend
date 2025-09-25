@@ -2,6 +2,14 @@ const express = require("express");
 const app = express();
 const session = require("express-session");
 const passport = require("./auth/localStrategy");
+const cors = require("cors");
+
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true,
+}
+
+app.use(cors(corsOptions));
 
 // Import routes
 const signUp = require("./routes/sign-up");

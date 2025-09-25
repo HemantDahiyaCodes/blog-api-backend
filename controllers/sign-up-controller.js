@@ -17,7 +17,7 @@ async function handleSignUp(req, res) {
     });
 
     if (user) {
-      return res.json({ message: "User already exists" });
+      return res.json({ userExists: true });
     } else {
       await prisma.user.create({
         data: {
