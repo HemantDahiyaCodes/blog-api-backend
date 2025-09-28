@@ -10,6 +10,10 @@ async function handleSignUp(req, res) {
   try {
     const { username, password } = req.body;
 
+    if(username.length < 4) {
+      return res.json({notValid : "too_short"})
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await prisma.user.findUnique({
@@ -25,7 +29,7 @@ async function handleSignUp(req, res) {
           password: hashedPassword,
         },
       });
-      res.json({ username, password });
+      res.json({ username, password, success: true });
     }
   } catch (err) {
     console.log(err);

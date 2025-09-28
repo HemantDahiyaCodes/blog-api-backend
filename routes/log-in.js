@@ -4,7 +4,7 @@ const passport = require("../auth/localStrategy");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv").config();
 
-login.get("/", loginController.loginForm);
+// login.get("/", loginController.loginForm);
 login.post(
   "/",
   passport.authenticate("local", { session: false }), (req, res) => {
