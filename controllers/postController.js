@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 async function getPost(req, res) {
   const { postId } = req.params;
-
+  console.log("Post id in req.params is: ", postId);
   const post = await prisma.post.findFirst({
     where: { id: parseFloat(postId), authorId: 2 },
     include: {
@@ -30,7 +30,7 @@ async function postComment(req, res) {
       userId: username.id,
       postId: parseFloat(postId),
       content: commentInReq.comment,
-      username: username.username
+      username: username.username,
     },
   });
 
@@ -57,8 +57,30 @@ async function allPosts(req, res) {
 
   res.json({ posts: user.posts, userInReq });
 }
+
+async function createPost(req, res) {
+  const postInReq = req.body;
+  console.log("The post in request is: ", postInReq);
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: 2,
+    }
+  })
+
+  const post = await prisma.post.create({
+    data: {
+      authorId: parseFloat(user.id),
+      title: postInReq.title,
+      content: postInReq.content,
+    }
+  });
+
+  res.json(post);
+}
 module.exports = {
   getPost,
   postComment,
   allPosts,
+  createPost,
 };

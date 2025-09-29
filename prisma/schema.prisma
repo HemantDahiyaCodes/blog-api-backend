@@ -28,11 +28,12 @@ model Post {
   authorId Int
   comments  Comment[]
   content String
+  title String?
 }
 
 model Comment {
   id      Int    @id @default(autoincrement())
-  content String
+  content String?
   user    User   @relation(fields: [userId], references: [id])
   userId  Int
   post    Post   @relation(fields: [postId], references: [id])

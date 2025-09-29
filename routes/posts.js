@@ -9,6 +9,8 @@ posts.get(
 
 posts.get("/:postId", passport_jwt.authenticate("jwt", {session: false}), postController.getPost)
 
-posts.post("/:postId", passport_jwt.authenticate("jwt", {session: false}), postController.postComment);
+posts.post("/:postId/comment", passport_jwt.authenticate("jwt", {session: false}), postController.postComment);
+
+posts.post("/post/create", passport_jwt.authenticate("jwt", {session: false}), postController.createPost);
 
 module.exports = posts;
