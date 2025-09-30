@@ -4,13 +4,32 @@ const postController = require("../controllers/postController");
 
 posts.get(
   "/",
-  passport_jwt.authenticate("jwt", { session: false }), postController.allPosts
+  passport_jwt.authenticate("jwt", { session: false }),
+  postController.allPosts
 );
 
-posts.get("/:postId", passport_jwt.authenticate("jwt", {session: false}), postController.getPost)
+posts.get(
+  "/:postId",
+  passport_jwt.authenticate("jwt", { session: false }),
+  postController.getPost
+);
 
-posts.post("/:postId/comment", passport_jwt.authenticate("jwt", {session: false}), postController.postComment);
+posts.post(
+  "/:postId/comment",
+  passport_jwt.authenticate("jwt", { session: false }),
+  postController.postComment
+);
 
-posts.post("/post/create", passport_jwt.authenticate("jwt", {session: false}), postController.createPost);
+posts.post(
+  "/",
+  passport_jwt.authenticate("jwt", { session: false }),
+  postController.createPost
+);
+
+posts.delete(
+  "/:postId/:commentId/",
+  passport_jwt.authenticate("jwt", { session: false }),
+  postController.deleteComment
+);
 
 module.exports = posts;

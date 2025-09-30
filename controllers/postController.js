@@ -78,9 +78,35 @@ async function createPost(req, res) {
 
   res.json(post);
 }
+
+async function deleteComment(req, res) {
+  const postId = req.params.postId;
+  console.log(postId)
+
+  const commentId = req.params.commentId;
+  console.log(commentId)
+
+  const post = await prisma.post.findFirst({
+    where: {id: parseFloat(postId)},
+    include: {
+      comments: true
+    }
+  })
+
+  const comment = await prisma.comment.delete({
+    where: {
+      id: parseFloat(commentId),
+      postId: post.id,
+    }
+  })
+
+  console.log("Comment Deleted");
+  console.log("All comments", post.comments);
+}
 module.exports = {
   getPost,
   postComment,
   allPosts,
   createPost,
+  deleteComment
 };
