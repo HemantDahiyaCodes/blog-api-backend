@@ -11,7 +11,7 @@ login.post(
     const user = req.user;
 
     if(!user) {
-        return "Authentication failed";
+        return res.json({message: "Username or password is incorrect"});
     }
 
     const token = jwt.sign({user: user}, process.env.SECRET_KEY, {expiresIn: "1hr"});
