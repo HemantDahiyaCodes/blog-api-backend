@@ -1,8 +1,10 @@
-const signUp = require("express").Router();
-const signUpController = require("../controllers/sign-up-controller");
+import {Router} from "express";
+import * as signUpController from "../controllers/sign-up-controller.js";
+import { validationRules } from "../validation/signup-validation.js";
 
-signUp.get("/", signUpController.signUpForm);
-signUp.post("/", signUpController.handleSignUp);
+// Creating a router
+const signUp = Router();
 
+signUp.post("/", validationRules, signUpController.handleSignUp);
 
-module.exports = signUp;
+export {signUp};

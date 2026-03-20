@@ -1,42 +1,32 @@
-const { PrismaClient } = require("../generated/prisma");
-const bcrypt = require("bcryptjs");
-const prisma = new PrismaClient();
-
-function signUpForm(req, res) {
-  res.json({ text: "Get the form!" });
-}
+import { prisma } from "../prismaClientConfig.js";
+import bcrypt from "bcryptjs";
+import { validationResult } from "express-validator";
 
 async function handleSignUp(req, res) {
   try {
-    const { username, password } = req.body;
+    const result = validationResult(req);
 
-    if(username.length < 4) {
-      return res.json({notValid : "too_short"})
-    }
+    console.log("The result of the validation is: ", result);
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    if (result.isEmpty()) {
+      const { username, password, email } = req.body;
 
-    const user = await prisma.user.findUnique({
-      where: { username: username },
-    });
+      // Bcrypt to hash the password before storing
+      const hashedPassword = await bcrypt.hash(password, 10);
 
-    if (user) {
-      return res.json({ userExists: true });
-    } else {
       await prisma.user.create({
         data: {
           username: username,
           password: hashedPassword,
+          email: email,
         },
       });
-      res.json({ username, password, success: true });
+
+      return res.json({success: true});
     }
   } catch (err) {
     console.log(err);
   }
 }
 
-module.exports = {
-  signUpForm,
-  handleSignUp,
-};
+export { handleSignUp };
