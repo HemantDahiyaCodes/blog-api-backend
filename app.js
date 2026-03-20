@@ -25,8 +25,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Using routes
-app.use("/users/sign-up", signUp);
-app.use("/users/log-in", login);
+app.use("/users", signUp);
+app.use("/sessions", login);
 app.use("/posts", posts);
 
 // Server
