@@ -1,35 +1,31 @@
-const posts = require("express").Router();
-const passport_jwt = require("../auth/JWTStrategy");
-const postController = require("../controllers/postController");
+import { Router } from "express";
+import * as postController from "../controllers/postController.js";
+const posts = Router();
+
 
 posts.get(
   "/",
-  passport_jwt.authenticate("jwt", { session: false }),
   postController.allPosts
 );
 
 posts.get(
   "/:postId",
-  passport_jwt.authenticate("jwt", { session: false }),
   postController.getPost
 );
 
 posts.post(
-  "/:postId/comment",
-  passport_jwt.authenticate("jwt", { session: false }),
+  "/:postId/comments",
   postController.postComment
 );
 
 posts.post(
   "/",
-  passport_jwt.authenticate("jwt", { session: false }),
   postController.createPost
 );
 
 posts.delete(
   "/:postId/:commentId/",
-  passport_jwt.authenticate("jwt", { session: false }),
   postController.deleteComment
 );
 
-module.exports = posts;
+export {posts}

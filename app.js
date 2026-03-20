@@ -1,8 +1,9 @@
-const express = require("express");
+// const express = require("express");
+import express from "express";
 const app = express();
-const session = require("express-session");
-const passport = require("./auth/localStrategy");
-const cors = require("cors");
+import {default as passport} from "./auth/localStrategy.js";
+import cors from "cors";
+import "dotenv/config";
 
 const corsOptions = {
   origin: "http://localhost:5173",
@@ -13,9 +14,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Import routes
-const signUp = require("./routes/sign-up");
-const login = require("./routes/log-in");
-const posts = require("./routes/posts");
+import { signUp } from "./routes/sign-up.js";
+import { login } from "./routes/log-in.js";
+import { posts } from "./routes/posts.js";
+const port = 8000;
 
 // Middlewares
 app.use(passport.initialize());
@@ -25,9 +27,9 @@ app.use(express.urlencoded({ extended: true }));
 // Using routes
 app.use("/users/sign-up", signUp);
 app.use("/users/log-in", login);
-app.use("/users/posts", posts);
+app.use("/posts", posts);
 
 // Server
-app.listen(process.env.PORT || 8000, () => {
-  console.log("Server started!");
+app.listen(process.env.PORT || port, () => {
+  console.log(`Server started at port number: ${port}`);
 });

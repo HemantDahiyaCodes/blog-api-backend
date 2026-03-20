@@ -1,5 +1,4 @@
-const { PrismaClient } = require("../generated/prisma");
-const prisma = new PrismaClient();
+import { prisma } from "../prismaClientConfig.js";
 
 async function getPost(req, res) {
   const { postId } = req.params;
@@ -103,10 +102,11 @@ async function deleteComment(req, res) {
   console.log("Comment Deleted");
   console.log("All comments", post.comments);
 }
-module.exports = {
+
+export {
   getPost,
   postComment,
   allPosts,
   createPost,
   deleteComment
-};
+}
