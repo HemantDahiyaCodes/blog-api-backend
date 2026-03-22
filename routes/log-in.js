@@ -1,6 +1,6 @@
-import { Router} from "express";
+import { Router } from "express";
 import { default as passport } from "../auth/localStrategy.js";
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 const login = Router();
 
@@ -14,11 +14,11 @@ login.post(
       return res.json({ message: "Username or password is incorrect" });
     }
 
-    const token = jwt.sign({ user: user }, process.env.SECRET_KEY, {
-      expiresIn: "1hr",
-    });
+    const token = jwt.sign({ user: user }, process.env.SECRET_KEY);
+
+    console.log("the token is: Bearer ", token);
+
     res.json({ token, success: true });
   },
 );
-
-export {login};
+export { login };
