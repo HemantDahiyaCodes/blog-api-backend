@@ -4,6 +4,7 @@ import { prisma } from "../prismaClientConfig.js";
 async function allPosts(req, res) {
   const posts = await prisma.post.findMany();
 
+
   res.json({posts})
 }
 
@@ -27,7 +28,7 @@ async function createPost(req, res) {
   const postInReq = req.body;
   console.log("The post in request is: ", postInReq);
 
-  const userInReq = req.user;
+  const userInReq = req.user; // Stores the user in req for verifying
 
   const user = await prisma.user.findUnique({
     where: {
@@ -38,7 +39,7 @@ async function createPost(req, res) {
 
   const post = await prisma.post.create({
     data: {
-      authorId: parseFloat(user.id),
+      authorId: parseInt(user.id),
       title: postInReq.title,
       content: postInReq.content,
     }
