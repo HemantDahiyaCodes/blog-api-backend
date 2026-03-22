@@ -6,8 +6,6 @@ async function handleSignUp(req, res) {
   try {
     const result = validationResult(req);
 
-    console.log("The result of the validation is: ", result);
-
     if (result.isEmpty()) {
       const { username, password, email } = req.body;
 
