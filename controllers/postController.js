@@ -17,11 +17,20 @@ async function getPost(req, res) {
     where: { id: parseFloat(postId)},
     include: {
       comments: true,
+      author: true,
     },
   });
   console.log("Found the post!");
 
-  res.json({ post });
+  const postOwner = await prisma.user.findFirst({
+    where: {
+      id : post.authorId
+    }
+  })
+
+  console.log("The owner of the post is: ", postOwner);
+
+  res.json({ post, postOwner });
 }
 
 async function createPost(req, res) {
@@ -42,6 +51,7 @@ async function createPost(req, res) {
       authorId: parseInt(user.id),
       title: postInReq.title,
       content: postInReq.content,
+      description: postInReq.description
     }
   });
 
