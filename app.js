@@ -17,6 +17,7 @@ app.use(cors(corsOptions));
 import { signUp } from "./routes/sign-up.js";
 import { login } from "./routes/log-in.js";
 import { posts } from "./routes/posts.js";
+import { comments } from "./routes/comments.js";
 const port = 8000;
 
 // Middlewares
