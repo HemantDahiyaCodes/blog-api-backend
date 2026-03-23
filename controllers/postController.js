@@ -18,7 +18,6 @@ async function getPost(req, res) {
   });
 
   const user = req.user;
-  console.log("User in req at get post is: ", user);
 
   res.json({ post });
 }
