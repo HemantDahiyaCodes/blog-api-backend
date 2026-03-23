@@ -6,7 +6,7 @@ import cors from "cors";
 import "dotenv/config";
 
 const corsOptions = {
-  origin: process.env.FRONTEND_01,
+  origin: [process.env.FRONTEND_01, process.env.VITE_API_URL],
   credentials: true,
   metohds: 'GET, POST',
 }
