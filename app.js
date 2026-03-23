@@ -18,7 +18,7 @@ import { signUp } from "./routes/sign-up.js";
 import { login } from "./routes/log-in.js";
 import { posts } from "./routes/posts.js";
 import { comments } from "./routes/comments.js";
-const port = 8000;
+const PORT = process.env.PORT || 8000;
 
 // Middlewares
 app.use(passport.initialize());
@@ -31,6 +31,6 @@ app.use("/sessions", login);
 app.use("/posts", posts);
 
 // Server
-app.listen(port, () => {
-  console.log(`Server started at port number: ${port}!`);
-});
+app.listen(`${PORT}`, () => {
+  console.log("Server started at port number: ", PORT);
+})
