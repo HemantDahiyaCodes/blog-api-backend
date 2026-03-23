@@ -1,36 +1,26 @@
 import { prisma } from "../prismaClientConfig.js";
 
-
 async function allPosts(req, res) {
   const posts = await prisma.post.findMany();
 
-
-  res.json({posts})
+  res.json({ posts });
 }
-
 
 async function getPost(req, res) {
   const { postId } = req.params;
-  console.log("Post id in req.params is: ", postId);
 
   const post = await prisma.post.findFirst({
-    where: { id: parseFloat(postId)},
+    where: { id: parseFloat(postId) },
     include: {
       comments: true,
       author: true,
     },
   });
-  console.log("Found the post!");
 
-  const postOwner = await prisma.user.findFirst({
-    where: {
-      id : post.authorId
-    }
-  })
+  const user = req.user;
+  console.log("User in req at get post is: ", user);
 
-  console.log("The owner of the post is: ", postOwner);
-
-  res.json({ post, postOwner });
+  res.json({ post });
 }
 
 async function createPost(req, res) {
@@ -42,24 +32,20 @@ async function createPost(req, res) {
   const user = await prisma.user.findUnique({
     where: {
       username: userInReq.username,
-      isAdmin: true
-    }
-  })
+      isAdmin: true,
+    },
+  });
 
   const post = await prisma.post.create({
     data: {
       authorId: parseInt(user.id),
       title: postInReq.title,
       content: postInReq.content,
-      description: postInReq.description
-    }
+      description: postInReq.description,
+    },
   });
 
   res.json(post);
 }
 
-export {
-  getPost,
-  allPosts,
-  createPost,
-}
+export { getPost, allPosts, createPost };

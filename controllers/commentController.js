@@ -7,15 +7,19 @@ async function createComment(req, res) {
 
     if (result.isEmpty()) {
       const user = req.user;
+
+
       const { postId } = req.params;
       const commentContent = req.body;
-      const createComment = await prisma.comment.create({
+      const comment = await prisma.comment.create({
         data: {
           content: commentContent.content,
-          userId: user.id,
-          postId: postId,
+          userId: parseInt(user.id),
+          postId: parseInt(postId),
         },
       });
+
+      return res.json({comment, user})
     }
   } catch (err) {
     throw new Error(err);
