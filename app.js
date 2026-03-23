@@ -5,17 +5,13 @@ import {default as passport} from "./auth/localStrategy.js";
 import cors from "cors";
 import "dotenv/config";
 
-
-console.log("FRONTEND_01:", process.env.FRONTEND_01);
-console.log("PRODUCTION_URL:", process.env.PRODUCTION_URL);
-
 const corsOptions = {
   origin: [process.env.FRONTEND_01, process.env.PRODUCTION_URL],
   credentials: true,
   methods: 'GET, POST, PUT, DELETE',
 }
 
-app.use('*', cors(corsOptions));
+app.options('(.*)', cors(corsOptions));
 
 // Import routes
 import { signUp } from "./routes/sign-up.js";
