@@ -40,4 +40,5 @@ model Comment {
   userId Int // Id of the person that created the comment
   post Post @relation(fields: [postId], references: [id])
   postId Int // Id of the post that the comment was created on
+  Username String?
 }
