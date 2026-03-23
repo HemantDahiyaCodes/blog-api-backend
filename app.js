@@ -31,6 +31,6 @@ app.use("/sessions", login);
 app.use("/posts", posts);
 
 // Server
-app.listen(process.env.PORT || port, () => {
-  console.log(`Server started at port number: ${port}`);
+app.listen(port, () => {
+  console.log(`Server started at port number: ${port}!`);
 });
