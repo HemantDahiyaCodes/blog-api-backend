@@ -18,7 +18,7 @@ login.post(
 
     console.log("the token is: Bearer ", token);
 
-    res.json({ token, success: true });
+    res.json({ token, success: true, user });
   },
 );
 export { login };

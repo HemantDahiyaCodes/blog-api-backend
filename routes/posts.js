@@ -2,7 +2,7 @@ import { Router } from "express";
 import * as postController from "../controllers/postController.js";
 import { createComment } from "../controllers/commentController.js";
 import passport from "passport";
-import "../auth/JWTStrategy.js"
+import "../auth/JWTStrategy.js";
 
 const posts = Router();
 
@@ -16,6 +16,10 @@ posts.post(
   postController.createPost,
 );
 
-posts.use("/:postId/comments", createComment);
+posts.use(
+  "/:postId/comments",
+  passport.authenticate("jwt", { session: false }),
+  createComment,
+);
 
 export { posts };
