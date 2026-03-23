@@ -9,7 +9,6 @@ async function handleSignUp(req, res) {
     if (result.isEmpty()) {
       const { username, password, email } = req.body;
 
-      // Bcrypt to hash the password before storing
       const hashedPassword = await bcrypt.hash(password, 10);
 
       await prisma.user.create({
