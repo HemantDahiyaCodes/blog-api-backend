@@ -11,7 +11,7 @@ const corsOptions = {
   methods: 'GET, POST, PUT, DELETE',
 }
 
-app.options('(.*)', cors(corsOptions));
+app.use(cors(corsOptions));
 
 // Import routes
 import { signUp } from "./routes/sign-up.js";
