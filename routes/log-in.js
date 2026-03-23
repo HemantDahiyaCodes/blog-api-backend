@@ -16,8 +16,6 @@ login.post(
 
     const token = jwt.sign({ user: user }, process.env.SECRET_KEY);
 
-    console.log("the token is: Bearer ", token);
-
     res.json({ token, success: true, user });
   },
 );
