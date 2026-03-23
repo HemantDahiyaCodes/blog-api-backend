@@ -5,13 +5,13 @@ import bcrypt from "bcryptjs";
 
 export default passport.use(
   new LocalStrategy(async (username, password, done) => {
+    console.log("Strategy hit with: ", username, password)
     try {
       const user = await prisma.user.findUnique({
         where: { username: username },
       });
-      console.log("The user in local strategy is: ", user);
 
-      // return if no user found
+      console.log("User found: ", user);
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       }
