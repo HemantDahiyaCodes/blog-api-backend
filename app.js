@@ -5,10 +5,14 @@ import {default as passport} from "./auth/localStrategy.js";
 import cors from "cors";
 import "dotenv/config";
 
+
+console.log("FRONTEND_01:", process.env.FRONTEND_01);
+console.log("PRODUCTION_URL:", process.env.PRODUCTION_URL);
+
 const corsOptions = {
-  origin: [process.env.FRONTEND_01, process.env.VITE_API_URL],
+  origin: [process.env.FRONTEND_01, process.env.PRODUCTION_URL],
   credentials: true,
-  metohds: 'GET, POST',
+  methods: 'GET, POST, PUT, DELETE',
 }
 
 app.use(cors(corsOptions));
