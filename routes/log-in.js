@@ -1,22 +1,29 @@
 import { Router } from "express";
-import { default as passport } from "../auth/localStrategy.js";
 import jwt from "jsonwebtoken";
+import passport from "../auth/passportConfig.js";
 
 const login = Router();
 
-login.post(
-  "/",
-  passport.authenticate("local", { session: false }),
-  (req, res) => {
-    const user = req.user;
-
-    if (!user) {
-      return res.json({ message: "Username or password is incorrect" });
+login.post("/", (req, res, next) => {
+  passport.authenticate("local", { session: false }, (err, user, info) => {
+    if (err) {
+      return next(err);
     }
 
-    const token = jwt.sign({ user: user }, process.env.SECRET_KEY);
+    if (!user) {
+      return res
+        .status(401)
+        .json({
+          success: false,
+          message: info.message || "Username or password is incorrect",
+        });
+    }
 
-    res.json({ token, success: true, user });
-  },
-);
+    const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
+      expiresIn: "1hr",
+    });
+
+    return res.json({ token, user });
+  })(req, res, next);
+});
 export { login };
