@@ -11,12 +11,10 @@ login.post("/", (req, res, next) => {
     }
 
     if (!user) {
-      return res
-        .status(401)
-        .json({
-          success: false,
-          message: info.message || "Username or password is incorrect",
-        });
+      return res.status(401).json({
+        success: false,
+        message: info.message || "Username or password is incorrect",
+      });
     }
 
     const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
