@@ -21,7 +21,7 @@ async function handleSignUp(req, res) {
 
       return res.json({success: true});
     } else {
-      return res.json(result);
+      return res.json({errors: result.errors, success: false});
     }
   } catch (err) {
     console.log(err);
