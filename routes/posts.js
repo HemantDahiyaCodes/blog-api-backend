@@ -1,8 +1,7 @@
 import { Router } from "express";
 import * as postController from "../controllers/postController.js";
 import { createComment } from "../controllers/commentController.js";
-import passport from "passport";
-import "../auth/JWTStrategy.js";
+import passport from "../auth/passportConfig.js"
 
 const posts = Router();
 
