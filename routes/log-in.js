@@ -21,7 +21,7 @@ login.post("/", (req, res, next) => {
       expiresIn: "1hr",
     });
 
-    return res.json({ token, user });
+    return res.json({ token, user: user.id });
   })(req, res, next);
 });
 export { login };
