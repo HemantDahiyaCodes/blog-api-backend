@@ -9,7 +9,7 @@ export const validationRules = [
     });
 
     if(user) {
-        throw new Error(`${user.username} already exists`);
+        throw new Error(`username ${user.username} already exists`);
     }
 
     return true;
