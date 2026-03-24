@@ -1,9 +1,9 @@
-// const express = require("express");
 import express from "express";
 const app = express();
-import {default as passport} from "./auth/localStrategy.js";
+import passport from "./auth/passportConfig.js";
 import cors from "cors";
 import "dotenv/config";
+const PORT = process.env.PORT || 8000;
 
 const corsOptions = {
   origin: [process.env.FRONTEND_01, process.env.PRODUCTION_URL],
@@ -17,8 +17,6 @@ app.use(cors(corsOptions));
 import { signUp } from "./routes/sign-up.js";
 import { login } from "./routes/log-in.js";
 import { posts } from "./routes/posts.js";
-import { comments } from "./routes/comments.js";
-const PORT = process.env.PORT || 8000;
 
 // Middlewares
 app.use(passport.initialize());
