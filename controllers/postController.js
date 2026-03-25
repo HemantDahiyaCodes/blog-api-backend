@@ -15,7 +15,7 @@ async function getPost(req, res) {
     const { postId } = req.params;
 
     const post = await prisma.post.findFirst({
-      where: { id: parseFloat(postId) },
+      where: { id: parseInt(postId) },
       include: {
         author: {
           select: {
